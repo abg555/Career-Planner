@@ -1,0 +1,81 @@
+{
+  "domain": "Ciencias de la Computación",
+  "available_skills": [
+    "programacion_basica", "logica_matematica", "estructuras_datos", 
+    "algoritmos_avanzados", "bases_de_datos", "redes_computadoras", 
+    "arquitectura_sistemas", "inteligencia_artificial", "desarrollo_web", 
+    "seguridad_informatica"
+  ],
+  "courses": [
+    {
+      "id": "programacion_1",
+      "description": "Introducción a la programación y pensamiento algorítmico.",
+      "prerequisites": [],
+      "effects": ["programacion_basica"],
+      "cost": 4
+    },
+    {
+      "id": "matematica_discreta",
+      "description": "Lógica, conjuntos y teoría de grafos.",
+      "prerequisites": [],
+      "effects": ["logica_matematica"],
+      "cost": 5
+    },
+    {
+      "id": "estructuras_datos_y_algoritmos",
+      "description": "Implementación de listas, pilas, colas y árboles.",
+      "prerequisites": ["programacion_basica", "logica_matematica"],
+      "effects": ["estructuras_datos"],
+      "cost": 6
+    },
+    {
+      "id": "bases_de_datos_1",
+      "description": "Modelado relacional y lenguaje SQL.",
+      "prerequisites": ["estructuras_datos"],
+      "effects": ["bases_de_datos"],
+      "cost": 5
+    },
+    {
+      "id": "desarrollo_web_fullstack",
+      "description": "Creación de aplicaciones web completas.",
+      "prerequisites": ["programacion_basica", "bases_de_datos"],
+      "effects": ["desarrollo_web"],
+      "cost": 7
+    },
+    {
+      "id": "redes_de_datos",
+      "description": "Protocolos de comunicación y arquitectura de red.",
+      "prerequisites": ["logica_matematica"],
+      "effects": ["redes_computadoras"],
+      "cost": 6
+    },
+    {
+      "id": "sistemas_operativos",
+      "description": "Gestión de procesos, memoria y archivos.",
+      "prerequisites": ["estructuras_datos"],
+      "effects": ["arquitectura_sistemas"],
+      "cost": 7
+    },
+    {
+      "id": "introduccion_ia",
+      "description": "Fundamentos de búsqueda, lógica y aprendizaje automático.",
+      "prerequisites": ["estructuras_datos", "logica_matematica"],
+      "effects": ["inteligencia_artificial"],
+      "cost": 8
+    },
+    {
+      "id": "seguridad_redes",
+      "description": "Criptografía y protección de infraestructuras.",
+      "prerequisites": ["redes_computadoras", "arquitectura_sistemas"],
+      "effects": ["seguridad_informatica"],
+      "cost": 7
+    },
+    {
+      "id": "analisis_algoritmos",
+      "description": "Complejidad computacional y optimización.",
+      "prerequisites": ["estructuras_datos"],
+      "effects": ["algoritmos_avanzados"],
+      "cost": 6
+    }
+  ]
+}
