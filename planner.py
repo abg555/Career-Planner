@@ -3,75 +3,77 @@ import json
 import heapq
 
 class Planner:
-    def __init__(self):
-        with open('dataset.json', 'r', encoding='utf-8') as f:
-            self.data = json.load(f)
+    def __init__(self, start_skills, goal_skills, extra_prerequisites):
+        with open('dataset.json', 'r', encoding='utf-8') as f:   #modelo STRIPS
+            data = json.load(f)
+        self.all_skills = set(data['available_skills'])      #P: conjunto de todas las habilidades disponibles
+        self.start_skills = set(start_skills)                #I: conjunto de habilidades iniciales
+        self.goal_skills = set(goal_skills)                  #G: conjunto de habilidades objetivo final 
+        self.operators = []                                  #O: conjunto de operadores (cursos)
+        for course in data['courses']:
+            operator = {
+                'id': course['id'],                          #identificacion del curso             
+                'title': course['title'],                    #titulo del curso
+                'modality': course['modality'],              #modalidad del curso
+                "difficulty": course['difficulty'],          #dificultad del curso
+                'alpha': set(course['prerequisites']),       #alpha: conjunto de condiciones que debebn ser verdaderas (prerequisitos del curso)
+                'beta' : set(),                              #beta: conjunto de condiciones que deben ser falsas (en este caso es un conjunto vacio)
+                'gamma': set(course['effects']),             #gamma: Condiciones que se hacen verdaderas (efectos del curso) (Add List)
+                'delta': {                                   #delta: codicones que se hacen falsas, en etse modelo delta representa el consumo de productos, dinero y tiempo (delete list)
+                    'money': course.get('cost', 0),
+                    'time': course.get('duration_hours', 0)
+                }
+            }
+            self.operators.append(operator)
+        self.extra_prerequisites = extra_prerequisites       #prerequisitos extras(ej. "presupuesto limitado de 50 dolares", "solo cursos online", etc)
 
-    def check_prerequisites(self, current_state, course_data):
-        prereqs = set(course_data['prerequisites'])
-        return prereqs.issubset(current_state)
+    def is_applicable(self, current_skill, current_resources, operator):
+        if not operator['alpha'].issubset(current_skill):
+            return False 
+        if current_skill.intersection(operator['beta']):
+            return False 
 
-    def apply_effects(self, current_state, course_data):
-        next_state = current_state.copy()
-        for effect in course_data['effects']:
-            next_state.add(effect)
-        return next_state
+        if operator['modality'] not in self.extra_prerequisites.get('modalities', []):
+            return False
+        if operator['difficulty'] not in self.extra_prerequisites.get('difficulties', []):
+            return False
+        
+        if operator['delta']['money'] > current_resources.get('money', 0):
+            return False
+        if operator['delta']['time'] > current_resources.get('time', 0):
+            return False
+        
+        return True
 
-    def run_bfs_planner(self, start_skills, goal_skills):
-        goal_skills_set =  set(goal_skills)
-        queue = deque([(set(start_skills), [])])  
-        visited = set()
+    def get_succesor(self, current_skills, current_resources, operator):
+        next_skills = current_skills.union(operator['gamma'])
+        next_resources = {
+            'money': current_resources['money'] - operator['delta']['money'],
+            'time': current_resources['time'] - operator['delta']['time']
+        }
+        return next_skills, next_resources
 
+    def run_bfs_planner(self):
+        queue = deque([(self.start_skills, self.extra_prerequisites, [])])
+        visited = {frozenset(self.start_skills)}
+        
         while queue:
-            current_state, path = queue.popleft()
+            current_skills, current_resources, path = queue.popleft()
             
-            if goal_skills_set.issubset(current_state):
+            if self.goal_skills.issubset(current_skills):
                 return path
             
-            state_signature = frozenset(current_state)
-            if state_signature in visited:
-                continue
-            visited.add(state_signature)
-
-            for course in self.data['courses']:
-                if course['id'] in path:
+            for operator in self.operators:
+                if operator in path:
                     continue
-                
-                if self.check_prerequisites(current_state, course):
-                    new_state = self.apply_effects(current_state, course)
-                    queue.append((new_state, path + [course['id']]))
 
+                if self.is_applicable(current_skills, current_resources, operator):
+                    next_skills, next_resources = self.get_succesor(current_skills, current_resources, operator)
+                    state_signature = frozenset(next_skills)
+                    
+                    if state_signature not in visited:
+                        visited.add(state_signature)
+                        queue.append((next_skills, next_resources, path + [operator]))
         return []
     
-    def run_cost_planner(self, start_skills, goal_skills):
-        goal_skills_set = set(goal_skills)
-        pq = []
-        start_state = set(start_skills)
-        heapq.heappush(pq, (0, start_state, []))
-        best_cost = {frozenset(start_state): 0}
-
-        while pq:
-            cost, current_state, path = heapq.heappop(pq)
-
-            if goal_skills_set.issubset(current_state):
-                return path
-
-            state_sig = frozenset(current_state)
-            if cost > best_cost.get(state_sig, float('inf')):
-                continue
-
-            for course in self.data['courses']:
-                if course['id'] in path:
-                    continue
-
-                if self.check_prerequisites(current_state, course):
-                    new_state = self.apply_effects(current_state, course)
-                    new_cost = cost + course.get('cost', 0)
-                    new_sig = frozenset(new_state)
-
-                    if new_cost < best_cost.get(new_sig, float('inf')):
-                        best_cost[new_sig] = new_cost
-                        heapq.heappush(pq, (new_cost, new_state, path + [course['id']]))
-
-        return []
-                    
+    
