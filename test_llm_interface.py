@@ -32,7 +32,9 @@ EXAMPLES = [
     "Busco aprender deep learning pero solo si es presencial y avanzado, presupuesto 80, tiempo 4 meses",                  
     "Me gustaría aprender data cience y estadistica; puedo pagar 30 dolares y tengo 90 dias",                                     
     "Quiero ser programador web, soy principiante, tengo 99 dolares y puedo dedicar 120 horas",                            
-    "Mi meta es seguridad informatica, prefiero presencial o online ya que no me gustan los cursos mixtos, presupuesto 25, plazo 15 dias, y no quiero que sean cursos de alta dificultad",              
+    "Mi meta es seguridad informatica, prefiero presencial o online ya que no me gustan los cursos mixtos, presupuesto 25, plazo 15 dias, y no quiero que sean cursos de alta dificultad",
+    "Me gustaria aprender backend y programacion orintada a objetos, no me gustan los cursos presenciales, ademas se algo de programacion basica, cuento con 200 dolares y 3 semanas, ademas prefiero la dificultad media baja.",              
+    "quiero aprender a programar en javascipt, aprender tambien de programacion web y frontend, cuento con un mes y 500 dolares, solo cursos online.",
 ]
 
 
@@ -44,13 +46,13 @@ def run_tests():
 
     llm = LLMInterface()
 
-    # --- LÓGICA FILTRO POR CONSOLA ---
-    indices_a_probar = range(len(EXAMPLES))  # Por defecto, todos los ejemplos
+   
+    indices_a_probar = range(len(EXAMPLES))  
 
-    # Si pasaste un número en la consola (ej: python test_llm_interface.py 8)
+   
     if len(sys.argv) > 1:
         try:
-            target_idx = int(sys.argv[1]) - 1  # Restamos 1 porque las listas en Python empiezan en 0
+            target_idx = int(sys.argv[1]) - 1 
             if 0 <= target_idx < len(EXAMPLES):
                 indices_a_probar = [target_idx]
             else:
@@ -59,7 +61,7 @@ def run_tests():
         except ValueError:
             print("Error: El argumento debe ser un número entero (ej: python test_llm_interface.py 8).")
             return
-    # ---------------------------------
+    
 
     for idx in indices_a_probar:
         text = EXAMPLES[idx]

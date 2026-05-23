@@ -50,7 +50,11 @@
       "title": "Programación I",
       "description": "Introducción a la programación, variables, control de flujo y pensamiento algorítmico.",
       "prerequisites": [],
-      "effects": ["programacion_basica", "python_programming", "version_control"],
+      "effects": [
+        "programacion_basica",
+        "python_programming",
+        "version_control"
+      ],
       "cost": 0,
       "difficulty": "baja",
       "duration_hours": 48,
@@ -61,7 +65,9 @@
       "title": "Matemática Discreta",
       "description": "Lógica, conjuntos, relaciones, grafos y razonamiento formal.",
       "prerequisites": [],
-      "effects": ["logica_matematica"],
+      "effects": [
+        "logica_matematica"
+      ],
       "cost": 20,
       "difficulty": "media",
       "duration_hours": 60,
@@ -71,8 +77,12 @@
       "id": "introduccion_poo",
       "title": "Programación Orientada a Objetos",
       "description": "Clases, objetos, encapsulación, herencia y buenas prácticas de diseño.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["programacion_orientada_objetos"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "programacion_orientada_objetos"
+      ],
       "cost": 0,
       "difficulty": "media",
       "duration_hours": 45,
@@ -82,8 +92,14 @@
       "id": "estructuras_datos_y_algoritmos",
       "title": "Estructuras de Datos y Algoritmos",
       "description": "Listas, pilas, colas, árboles, recorridos y análisis básico de complejidad.",
-      "prerequisites": ["programacion_basica", "logica_matematica"],
-      "effects": ["estructuras_datos", "algoritmos_avanzados"],
+      "prerequisites": [
+        "programacion_basica",
+        "logica_matematica"
+      ],
+      "effects": [
+        "estructuras_datos",
+        "algoritmos_avanzados"
+      ],
       "cost": 30,
       "difficulty": "alta",
       "duration_hours": 80,
@@ -93,8 +109,12 @@
       "id": "analisis_algoritmos",
       "title": "Análisis de Algoritmos",
       "description": "Complejidad temporal, espacio, optimización y comparación de estrategias.",
-      "prerequisites": ["estructuras_datos"],
-      "effects": ["algoritmos_avanzados"],
+      "prerequisites": [
+        "estructuras_datos"
+      ],
+      "effects": [
+        "algoritmos_avanzados"
+      ],
       "cost": 25,
       "difficulty": "alta",
       "duration_hours": 64,
@@ -104,8 +124,13 @@
       "id": "bases_de_datos_1",
       "title": "Bases de Datos I",
       "description": "Modelado relacional, normalización y lenguaje SQL.",
-      "prerequisites": ["estructuras_datos"],
-      "effects": ["bases_de_datos", "sql"],
+      "prerequisites": [
+        "estructuras_datos"
+      ],
+      "effects": [
+        "bases_de_datos",
+        "sql"
+      ],
       "cost": 20,
       "difficulty": "media",
       "duration_hours": 56,
@@ -115,8 +140,13 @@
       "id": "administracion_bases_datos",
       "title": "Administración de Bases de Datos",
       "description": "Optimización de consultas, índices, seguridad y respaldo.",
-      "prerequisites": ["bases_de_datos"],
-      "effects": ["bases_de_datos", "sql"],
+      "prerequisites": [
+        "bases_de_datos"
+      ],
+      "effects": [
+        "bases_de_datos",
+        "sql"
+      ],
       "cost": 15,
       "difficulty": "media",
       "duration_hours": 40,
@@ -126,8 +156,12 @@
       "id": "redes_de_datos",
       "title": "Redes de Datos",
       "description": "Protocolos de comunicación, direccionamiento y arquitectura de red.",
-      "prerequisites": ["logica_matematica"],
-      "effects": ["redes_computadoras"],
+      "prerequisites": [
+        "logica_matematica"
+      ],
+      "effects": [
+        "redes_computadoras"
+      ],
       "cost": 25,
       "difficulty": "media",
       "duration_hours": 60,
@@ -137,8 +171,12 @@
       "id": "sistemas_operativos",
       "title": "Sistemas Operativos",
       "description": "Procesos, memoria, concurrencia, archivos y conceptos de arquitectura.",
-      "prerequisites": ["estructuras_datos"],
-      "effects": ["arquitectura_sistemas"],
+      "prerequisites": [
+        "estructuras_datos"
+      ],
+      "effects": [
+        "arquitectura_sistemas"
+      ],
       "cost": 30,
       "difficulty": "alta",
       "duration_hours": 72,
@@ -148,8 +186,13 @@
       "id": "fundamentos_desarrollo_web",
       "title": "Fundamentos de Desarrollo Web",
       "description": "HTML, CSS, accesibilidad, peticiones web y estructura de aplicaciones web.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["desarrollo_web", "frontend_web"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "desarrollo_web",
+        "frontend_web"
+      ],
       "cost": 0,
       "difficulty": "media",
       "duration_hours": 50,
@@ -159,8 +202,14 @@
       "id": "frontend_moderno",
       "title": "Frontend Moderno",
       "description": "JavaScript moderno, componentes, estado de interfaz y experiencia de usuario.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["frontend_web", "javascript_programming", "desarrollo_web"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "frontend_web",
+        "javascript_programming",
+        "desarrollo_web"
+      ],
       "cost": 15,
       "difficulty": "media",
       "duration_hours": 60,
@@ -170,8 +219,14 @@
       "id": "backend_api_rest",
       "title": "Backend y APIs REST",
       "description": "Construcción de servicios backend, validación, autenticación y exposición de APIs.",
-      "prerequisites": ["programacion_basica", "bases_de_datos"],
-      "effects": ["backend_web", "desarrollo_web"],
+      "prerequisites": [
+        "programacion_basica",
+        "bases_de_datos"
+      ],
+      "effects": [
+        "backend_web",
+        "desarrollo_web"
+      ],
       "cost": 25,
       "difficulty": "alta",
       "duration_hours": 72,
@@ -181,8 +236,13 @@
       "id": "desarrollo_fullstack_con_frameworks",
       "title": "Desarrollo Fullstack con Frameworks",
       "description": "Integración de frontend y backend para construir aplicaciones completas.",
-      "prerequisites": ["frontend_web", "backend_web"],
-      "effects": ["desarrollo_web"],
+      "prerequisites": [
+        "frontend_web",
+        "backend_web"
+      ],
+      "effects": [
+        "desarrollo_web"
+      ],
       "cost": 40,
       "difficulty": "alta",
       "duration_hours": 64,
@@ -192,8 +252,12 @@
       "id": "testing_y_calidad_web",
       "title": "Testing y Calidad de Software",
       "description": "Pruebas unitarias, integración, automatización y criterios de calidad.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["software_testing"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "software_testing"
+      ],
       "cost": 0,
       "difficulty": "media",
       "duration_hours": 42,
@@ -204,7 +268,9 @@
       "title": "UX/UI para Desarrollo de Productos",
       "description": "Diseño centrado en el usuario, prototipado y patrones de interacción.",
       "prerequisites": [],
-      "effects": ["ui_ux"],
+      "effects": [
+        "ui_ux"
+      ],
       "cost": 0,
       "difficulty": "baja",
       "duration_hours": 30,
@@ -214,8 +280,14 @@
       "id": "mobile_app_development",
       "title": "Desarrollo de Aplicaciones Móviles",
       "description": "Interfaces móviles, navegación, estado y despliegue básico.",
-      "prerequisites": ["programacion_basica", "programacion_orientada_objetos"],
-      "effects": ["mobile_development", "desarrollo_web"],
+      "prerequisites": [
+        "programacion_basica",
+        "programacion_orientada_objetos"
+      ],
+      "effects": [
+        "mobile_development",
+        "desarrollo_web"
+      ],
       "cost": 25,
       "difficulty": "media",
       "duration_hours": 58,
@@ -225,8 +297,13 @@
       "id": "introduccion_ia",
       "title": "Introducción a la Inteligencia Artificial",
       "description": "Búsqueda, razonamiento, representación del conocimiento y aprendizaje automático básico.",
-      "prerequisites": ["estructuras_datos", "logica_matematica"],
-      "effects": ["inteligencia_artificial"],
+      "prerequisites": [
+        "estructuras_datos",
+        "logica_matematica"
+      ],
+      "effects": [
+        "inteligencia_artificial"
+      ],
       "cost": 40,
       "difficulty": "alta",
       "duration_hours": 75,
@@ -236,8 +313,13 @@
       "id": "estadistica_para_datos",
       "title": "Estadística para Ciencia de Datos",
       "description": "Probabilidad, inferencia, muestreo y preparación para análisis de datos.",
-      "prerequisites": ["matematica_discreta"],
-      "effects": ["estadistica", "data_science"],
+      "prerequisites": [
+        "matematica_discreta"
+      ],
+      "effects": [
+        "estadistica",
+        "data_science"
+      ],
       "cost": 20,
       "difficulty": "media",
       "duration_hours": 52,
@@ -247,8 +329,14 @@
       "id": "ciencia_de_datos_con_python",
       "title": "Ciencia de Datos con Python",
       "description": "Exploración, limpieza y visualización de datos para resolver problemas reales.",
-      "prerequisites": ["programacion_basica", "estadistica"],
-      "effects": ["data_science", "python_programming"],
+      "prerequisites": [
+        "programacion_basica",
+        "estadistica"
+      ],
+      "effects": [
+        "data_science",
+        "python_programming"
+      ],
       "cost": 30,
       "difficulty": "media",
       "duration_hours": 60,
@@ -258,8 +346,14 @@
       "id": "machine_learning_practico",
       "title": "Machine Learning Práctico",
       "description": "Modelos supervisados, validación, métricas y selección de características.",
-      "prerequisites": ["data_science", "estadistica"],
-      "effects": ["machine_learning", "inteligencia_artificial"],
+      "prerequisites": [
+        "data_science",
+        "estadistica"
+      ],
+      "effects": [
+        "machine_learning",
+        "inteligencia_artificial"
+      ],
       "cost": 50,
       "difficulty": "alta",
       "duration_hours": 70,
@@ -269,8 +363,12 @@
       "id": "deep_learning_intro",
       "title": "Deep Learning",
       "description": "Redes neuronales, entrenamiento, regularización y aplicaciones modernas.",
-      "prerequisites": ["machine_learning"],
-      "effects": ["deep_learning"],
+      "prerequisites": [
+        "machine_learning"
+      ],
+      "effects": [
+        "deep_learning"
+      ],
       "cost": 75,
       "difficulty": "alta",
       "duration_hours": 78,
@@ -280,8 +378,12 @@
       "id": "ia_y_etica",
       "title": "IA y Ética",
       "description": "Sesgos, privacidad, explicabilidad y uso responsable de sistemas inteligentes.",
-      "prerequisites": ["inteligencia_artificial"],
-      "effects": ["ai_ethics"],
+      "prerequisites": [
+        "inteligencia_artificial"
+      ],
+      "effects": [
+        "ai_ethics"
+      ],
       "cost": 0,
       "difficulty": "baja",
       "duration_hours": 24,
@@ -291,8 +393,14 @@
       "id": "redes_y_seguridad",
       "title": "Redes y Seguridad",
       "description": "Protección de infraestructuras, administración básica y prácticas de seguridad.",
-      "prerequisites": ["redes_computadoras", "arquitectura_sistemas"],
-      "effects": ["seguridad_informatica", "ciberseguridad_fundamentos"],
+      "prerequisites": [
+        "redes_computadoras",
+        "arquitectura_sistemas"
+      ],
+      "effects": [
+        "seguridad_informatica",
+        "ciberseguridad_fundamentos"
+      ],
       "cost": 35,
       "difficulty": "alta",
       "duration_hours": 66,
@@ -302,8 +410,13 @@
       "id": "criptografia_aplicada",
       "title": "Criptografía Aplicada",
       "description": "Cifrado simétrico, asimétrico, firmas digitales y gestión de claves.",
-      "prerequisites": ["redes_computadoras"],
-      "effects": ["criptografia", "seguridad_informatica"],
+      "prerequisites": [
+        "redes_computadoras"
+      ],
+      "effects": [
+        "criptografia",
+        "seguridad_informatica"
+      ],
       "cost": 30,
       "difficulty": "alta",
       "duration_hours": 54,
@@ -313,8 +426,13 @@
       "id": "ciberseguridad_fundamentos",
       "title": "Fundamentos de Ciberseguridad",
       "description": "Amenazas comunes, buenas prácticas, hardening y respuesta básica a incidentes.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["ciberseguridad_fundamentos", "seguridad_informatica"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "ciberseguridad_fundamentos",
+        "seguridad_informatica"
+      ],
       "cost": 15,
       "difficulty": "media",
       "duration_hours": 48,
@@ -324,8 +442,13 @@
       "id": "cloud_y_devops_basico",
       "title": "Cloud y DevOps Básico",
       "description": "Servicios en la nube, integración continua, despliegue y automatización.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["cloud_computing", "devops"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "cloud_computing",
+        "devops"
+      ],
       "cost": 25,
       "difficulty": "media",
       "duration_hours": 55,
@@ -335,8 +458,14 @@
       "id": "sistemas_distribuidos",
       "title": "Sistemas Distribuidos",
       "description": "Sincronización, tolerancia a fallos, escalabilidad y consistencia.",
-      "prerequisites": ["arquitectura_sistemas", "redes_computadoras"],
-      "effects": ["distributed_systems", "arquitectura_sistemas"],
+      "prerequisites": [
+        "arquitectura_sistemas",
+        "redes_computadoras"
+      ],
+      "effects": [
+        "distributed_systems",
+        "arquitectura_sistemas"
+      ],
       "cost": 50,
       "difficulty": "alta",
       "duration_hours": 72,
@@ -346,8 +475,13 @@
       "id": "devops_y_cicd",
       "title": "DevOps y CI/CD",
       "description": "Integración, entrega continua, despliegue automatizado y observabilidad.",
-      "prerequisites": ["cloud_computing", "software_testing"],
-      "effects": ["devops"],
+      "prerequisites": [
+        "cloud_computing",
+        "software_testing"
+      ],
+      "effects": [
+        "devops"
+      ],
       "cost": 20,
       "difficulty": "media",
       "duration_hours": 44,
@@ -357,8 +491,13 @@
       "id": "proyecto_integrador_fullstack",
       "title": "Proyecto Integrador Fullstack",
       "description": "Integración de frontend y backend para construir aplicaciones completas con enfoque de proyecto.",
-      "prerequisites": ["frontend_web", "backend_web"],
-      "effects": ["desarrollo_web"],
+      "prerequisites": [
+        "frontend_web",
+        "backend_web"
+      ],
+      "effects": [
+        "desarrollo_web"
+      ],
       "cost": 35,
       "difficulty": "alta",
       "duration_hours": 64,
@@ -369,18 +508,26 @@
       "title": "Web Básica Práctica",
       "description": "Curso introductorio y corto para construir sitios simples con HTML y CSS.",
       "prerequisites": [],
-      "effects": ["desarrollo_web", "frontend_web"],
+      "effects": [
+        "desarrollo_web",
+        "frontend_web"
+      ],
       "cost": 0,
       "difficulty": "baja",
-      "duration_hours": 24,
+      "duration_hours": 12,
       "modality": "online"
     },
     {
       "id": "javascript_desde_cero",
       "title": "JavaScript desde Cero",
       "description": "Fundamentos de JavaScript para comenzar a crear interfaces interactivas.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["javascript_programming", "frontend_web"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "javascript_programming",
+        "frontend_web"
+      ],
       "cost": 10,
       "difficulty": "baja",
       "duration_hours": 36,
@@ -390,8 +537,15 @@
       "id": "fullstack_boost",
       "title": "Fullstack Bootcamp",
       "description": "Ruta intensiva para crear aplicaciones completas en poco tiempo.",
-      "prerequisites": ["programacion_basica", "bases_de_datos"],
-      "effects": ["frontend_web", "backend_web", "desarrollo_web"],
+      "prerequisites": [
+        "programacion_basica",
+        "bases_de_datos"
+      ],
+      "effects": [
+        "frontend_web",
+        "backend_web",
+        "desarrollo_web"
+      ],
       "cost": 60,
       "difficulty": "alta",
       "duration_hours": 120,
@@ -402,7 +556,10 @@
       "title": "SQL Práctico",
       "description": "Consultas SQL básicas, joins, filtros y manipulación de datos.",
       "prerequisites": [],
-      "effects": ["sql", "bases_de_datos"],
+      "effects": [
+        "sql",
+        "bases_de_datos"
+      ],
       "cost": 5,
       "difficulty": "baja",
       "duration_hours": 28,
@@ -412,8 +569,13 @@
       "id": "bases_de_datos_avanzadas",
       "title": "Bases de Datos Avanzadas",
       "description": "Diseño de esquemas complejos, optimización y escalabilidad de bases de datos.",
-      "prerequisites": ["bases_de_datos"],
-      "effects": ["bases_de_datos", "sql"],
+      "prerequisites": [
+        "bases_de_datos"
+      ],
+      "effects": [
+        "bases_de_datos",
+        "sql"
+      ],
       "cost": 45,
       "difficulty": "alta",
       "duration_hours": 70,
@@ -423,8 +585,12 @@
       "id": "ia_intro_practica",
       "title": "IA Introductoria Práctica",
       "description": "Curso breve para entender los conceptos esenciales de IA sin mucha teoría matemática.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["inteligencia_artificial"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "inteligencia_artificial"
+      ],
       "cost": 12,
       "difficulty": "media",
       "duration_hours": 40,
@@ -434,8 +600,14 @@
       "id": "machine_learning_intensivo",
       "title": "Machine Learning Intensivo",
       "description": "Formación más larga y exigente para profundizar en modelos y evaluación.",
-      "prerequisites": ["data_science", "estadistica"],
-      "effects": ["machine_learning", "inteligencia_artificial"],
+      "prerequisites": [
+        "data_science",
+        "estadistica"
+      ],
+      "effects": [
+        "machine_learning",
+        "inteligencia_artificial"
+      ],
       "cost": 80,
       "difficulty": "alta",
       "duration_hours": 100,
@@ -445,8 +617,13 @@
       "id": "ciberseguridad_bootcamp",
       "title": "Bootcamp de Ciberseguridad",
       "description": "Ruta intensiva para empezar en ciberseguridad con laboratorios prácticos.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["ciberseguridad_fundamentos", "seguridad_informatica"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "ciberseguridad_fundamentos",
+        "seguridad_informatica"
+      ],
       "cost": 40,
       "difficulty": "alta",
       "duration_hours": 90,
@@ -456,8 +633,12 @@
       "id": "cloud_basics_gratis",
       "title": "Cloud Basics",
       "description": "Introducción gratuita a servicios en la nube y despliegue básico.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["cloud_computing"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "cloud_computing"
+      ],
       "cost": 0,
       "difficulty": "baja",
       "duration_hours": 18,
@@ -467,8 +648,14 @@
       "id": "devops_pro",
       "title": "DevOps Pro",
       "description": "Curso avanzado para automatización, pipelines y observabilidad en proyectos reales.",
-      "prerequisites": ["cloud_computing", "software_testing"],
-      "effects": ["devops", "cloud_computing"],
+      "prerequisites": [
+        "cloud_computing",
+        "software_testing"
+      ],
+      "effects": [
+        "devops",
+        "cloud_computing"
+      ],
       "cost": 55,
       "difficulty": "alta",
       "duration_hours": 80,
@@ -478,8 +665,12 @@
       "id": "app_movil_basico",
       "title": "App Móvil Básica",
       "description": "Desarrollo de una primera app móvil simple con interfaz y navegación.",
-      "prerequisites": ["programacion_basica"],
-      "effects": ["mobile_development"],
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "mobile_development"
+      ],
       "cost": 20,
       "difficulty": "media",
       "duration_hours": 48,
@@ -490,10 +681,953 @@
       "title": "UX/UI Fast Track",
       "description": "Ruta rápida y práctica para entrar al diseño de interfaces.",
       "prerequisites": [],
-      "effects": ["ui_ux"],
+      "effects": [
+        "ui_ux"
+      ],
       "cost": 5,
       "difficulty": "baja",
       "duration_hours": 20,
+      "modality": "online"
+    },
+    {
+      "id": "python_basico_acelerado",
+      "title": "Python Básico Acelerado",
+      "description": "Fundamentos de Python en 30 horas, enfocado en scripts y automatización.",
+      "prerequisites": [],
+      "effects": [
+        "programacion_basica",
+        "python_programming"
+      ],
+      "cost": 5,
+      "difficulty": "baja",
+      "duration_hours": 30,
+      "modality": "online"
+    },
+    {
+      "id": "estructuras_datos_practica",
+      "title": "Estructuras de Datos Prácticas",
+      "description": "Implementación práctica de estructuras de datos sin énfasis en teoría de complejidad.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "estructuras_datos"
+      ],
+      "cost": 10,
+      "difficulty": "media",
+      "duration_hours": 45,
+      "modality": "online"
+    },
+    {
+      "id": "web_frontend_express",
+      "title": "Frontend Express",
+      "description": "Curso rápido de React/Vue para construir interfaces modernas.",
+      "prerequisites": [
+        "javascript_programming"
+      ],
+      "effects": [
+        "frontend_web",
+        "desarrollo_web"
+      ],
+      "cost": 20,
+      "difficulty": "media",
+      "duration_hours": 50,
+      "modality": "online"
+    },
+    {
+      "id": "web_backend_express",
+      "title": "Backend Express",
+      "description": "Curso rápido de Node.js/Express para construir APIs REST simples.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "backend_web",
+        "desarrollo_web"
+      ],
+      "cost": 15,
+      "difficulty": "media",
+      "duration_hours": 45,
+      "modality": "online"
+    },
+    {
+      "id": "web_fullstack_rapido",
+      "title": "Fullstack Rápido",
+      "description": "Integración rápida de frontend + backend sin profundizar en arquitectura.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "frontend_web",
+        "backend_web",
+        "desarrollo_web"
+      ],
+      "cost": 40,
+      "difficulty": "media",
+      "duration_hours": 60,
+      "modality": "online"
+    },
+    {
+      "id": "ml_basico_online",
+      "title": "Machine Learning Básico",
+      "description": "Introducción práctica a ML con scikit-learn sin mucha teoría matemática.",
+      "prerequisites": [
+        "programacion_basica",
+        "estadistica"
+      ],
+      "effects": [
+        "machine_learning",
+        "inteligencia_artificial"
+      ],
+      "cost": 25,
+      "difficulty": "media",
+      "duration_hours": 50,
+      "modality": "online"
+    },
+    {
+      "id": "deep_learning_rapido",
+      "title": "Deep Learning Rápido",
+      "description": "Introducción a redes neuronales y TensorFlow/PyTorch sin teoría profunda.",
+      "prerequisites": [
+        "machine_learning"
+      ],
+      "effects": [
+        "deep_learning"
+      ],
+      "cost": 40,
+      "difficulty": "media",
+      "duration_hours": 55,
+      "modality": "online"
+    },
+    {
+      "id": "ia_completa_2meses",
+      "title": "IA Completa en 2 Meses",
+      "description": "Bootcamp intensivo que cubre IA, ML y DL de forma simultánea.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "inteligencia_artificial",
+        "machine_learning",
+        "deep_learning"
+      ],
+      "cost": 150,
+      "difficulty": "alta",
+      "duration_hours": 120,
+      "modality": "mixto"
+    },
+    {
+      "id": "estadistica_basica",
+      "title": "Estadística Básica Online",
+      "description": "Introducción ligera a probabilidad y estadística sin cálculo avanzado.",
+      "prerequisites": [],
+      "effects": [
+        "estadistica"
+      ],
+      "cost": 8,
+      "difficulty": "baja",
+      "duration_hours": 32,
+      "modality": "online"
+    },
+    {
+      "id": "data_science_rapida",
+      "title": "Data Science Rápida",
+      "description": "Análisis exploratorio de datos sin profundidad teórica.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "data_science"
+      ],
+      "cost": 15,
+      "difficulty": "baja",
+      "duration_hours": 36,
+      "modality": "online"
+    },
+    {
+      "id": "seguridad_web_basica",
+      "title": "Seguridad Web Básica",
+      "description": "OWASP top 10, validación de entrada y buenas prácticas en aplicaciones web.",
+      "prerequisites": [
+        "desarrollo_web"
+      ],
+      "effects": [
+        "seguridad_informatica"
+      ],
+      "cost": 20,
+      "difficulty": "media",
+      "duration_hours": 40,
+      "modality": "online"
+    },
+    {
+      "id": "ciberseguridad_express",
+      "title": "Ciberseguridad Express",
+      "description": "Ruta rápida de 60 horas para entrar a ciberseguridad.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "ciberseguridad_fundamentos",
+        "seguridad_informatica"
+      ],
+      "cost": 25,
+      "difficulty": "media",
+      "duration_hours": 60,
+      "modality": "online"
+    },
+    {
+      "id": "cloud_aws_basico",
+      "title": "AWS Básico",
+      "description": "Servicios AWS esenciales: EC2, S3, RDS para aplicaciones web.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "cloud_computing"
+      ],
+      "cost": 30,
+      "difficulty": "media",
+      "duration_hours": 48,
+      "modality": "online"
+    },
+    {
+      "id": "devops_github_actions",
+      "title": "DevOps con GitHub Actions",
+      "description": "CI/CD simplificado usando GitHub Actions para automatización.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "devops"
+      ],
+      "cost": 12,
+      "difficulty": "media",
+      "duration_hours": 30,
+      "modality": "online"
+    },
+    {
+      "id": "sql_avanzado",
+      "title": "SQL Avanzado",
+      "description": "Consultas complejas, stored procedures y optimización de queries.",
+      "prerequisites": [
+        "sql"
+      ],
+      "effects": [
+        "bases_de_datos",
+        "sql"
+      ],
+      "cost": 20,
+      "difficulty": "alta",
+      "duration_hours": 50,
+      "modality": "online"
+    },
+    {
+      "id": "nosql_basico",
+      "title": "NoSQL Básico",
+      "description": "Introducción a bases de datos no relacionales: MongoDB, Redis, etc.",
+      "prerequisites": [
+        "bases_de_datos"
+      ],
+      "effects": [
+        "bases_de_datos"
+      ],
+      "cost": 15,
+      "difficulty": "media",
+      "duration_hours": 40,
+      "modality": "online"
+    },
+    {
+      "id": "algoritmos_competitivos",
+      "title": "Algoritmos Competitivos",
+      "description": "Resolución de problemas algorítmicos y técnicas de optimización.",
+      "prerequisites": [
+        "estructuras_datos"
+      ],
+      "effects": [
+        "algoritmos_avanzados"
+      ],
+      "cost": 35,
+      "difficulty": "alta",
+      "duration_hours": 60,
+      "modality": "online"
+    },
+    {
+      "id": "frontend_avanzado_web",
+      "title": "Frontend Avanzado",
+      "description": "State management, performance optimization y testing en frontendweb.",
+      "prerequisites": [
+        "frontend_web"
+      ],
+      "effects": [
+        "frontend_web"
+      ],
+      "cost": 30,
+      "difficulty": "alta",
+      "duration_hours": 55,
+      "modality": "online"
+    },
+    {
+      "id": "backend_escalable",
+      "title": "Backend Escalable",
+      "description": "Arquitectura de microservicios, caching y manejo de alto tráfico.",
+      "prerequisites": [
+        "backend_web"
+      ],
+      "effects": [
+        "backend_web",
+        "arquitectura_sistemas"
+      ],
+      "cost": 45,
+      "difficulty": "alta",
+      "duration_hours": 70,
+      "modality": "mixto"
+    },
+    {
+      "id": "mobile_cross_platform",
+      "title": "Mobile Cross-Platform",
+      "description": "Desarrollo de apps móviles con React Native o Flutter para iOS y Android.",
+      "prerequisites": [
+        "mobile_development"
+      ],
+      "effects": [
+        "mobile_development"
+      ],
+      "cost": 35,
+      "difficulty": "alta",
+      "duration_hours": 65,
+      "modality": "online"
+    },
+    {
+      "id": "computacion_en_la_nube_avanzada",
+      "title": "Computación en la Nube Avanzada",
+      "description": "Kubernetes, serverless, auto-scaling y arquitectura cloud nativa.",
+      "prerequisites": [
+        "cloud_computing"
+      ],
+      "effects": [
+        "cloud_computing",
+        "devops"
+      ],
+      "cost": 50,
+      "difficulty": "alta",
+      "duration_hours": 70,
+      "modality": "mixto"
+    },
+    {
+      "id": "criptografia_basica",
+      "title": "Criptografía Básica",
+      "description": "Introducción a cifrado sin profundidad matemática, enfoque práctico.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "criptografia"
+      ],
+      "cost": 15,
+      "difficulty": "media",
+      "duration_hours": 40,
+      "modality": "online"
+    },
+    {
+      "id": "fullstack_ultra_rapido",
+      "title": "Fullstack Ultra Rápido - 3 semanas",
+      "description": "Bootcamp intensivo de fullstack en 3 semanas. Todo lo que necesitas: frontend, backend, deploy.",
+      "prerequisites": [],
+      "effects": [
+        "desarrollo_web",
+        "frontend_web",
+        "backend_web"
+      ],
+      "cost": 120,
+      "difficulty": "media",
+      "duration_hours": 80,
+      "modality": "online"
+    },
+    {
+      "id": "html_css_puro",
+      "title": "HTML & CSS Puro",
+      "description": "Fundamentos puros de HTML5 y CSS3 sin frameworks.",
+      "prerequisites": [],
+      "effects": [
+        "frontend_web"
+      ],
+      "cost": 5,
+      "difficulty": "baja",
+      "duration_hours": 24,
+      "modality": "online"
+    },
+    {
+      "id": "javascript_vanilla",
+      "title": "JavaScript Vanilla",
+      "description": "JavaScript sin librerías. DOM, events, AJAX.",
+      "prerequisites": [
+        "frontend_web"
+      ],
+      "effects": [
+        "javascript_programming"
+      ],
+      "cost": 8,
+      "difficulty": "baja",
+      "duration_hours": 32,
+      "modality": "online"
+    },
+    {
+      "id": "nodejs_express_basico",
+      "title": "Node.js Express Básico",
+      "description": "Servidor HTTP básico con Node.js y Express.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "backend_web"
+      ],
+      "cost": 10,
+      "difficulty": "baja",
+      "duration_hours": 30,
+      "modality": "online"
+    },
+      {
+        "id": "backend_sprint",
+        "title": "Backend Sprint",
+        "description": "Ruta compacta para crear APIs REST sin tanta teoría de bases de datos.",
+        "prerequisites": [
+          "programacion_basica"
+        ],
+        "effects": [
+          "backend_web"
+        ],
+        "cost": 18,
+        "difficulty": "media",
+        "duration_hours": 38,
+        "modality": "online"
+      },
+      {
+        "id": "data_quick_start",
+        "title": "Data Quick Start",
+        "description": "Ruta inicial para análisis de datos con enfoque práctico.",
+        "prerequisites": [
+          "programacion_basica"
+        ],
+        "effects": [
+          "data_science"
+        ],
+        "cost": 12,
+        "difficulty": "baja",
+        "duration_hours": 28,
+        "modality": "online"
+      },
+      {
+        "id": "sql_directo_gratuito",
+        "title": "SQL Directo Gratuito",
+        "description": "SQL sin prerequisitos para practicar consultas desde cero.",
+        "prerequisites": [],
+        "effects": [
+          "sql"
+        ],
+        "cost": 0,
+        "difficulty": "baja",
+        "duration_hours": 20,
+        "modality": "online"
+      },
+      {
+        "id": "frontend_js_project",
+        "title": "Frontend JS Project",
+        "description": "Proyecto corto que cubre frontend y JavaScript en un solo curso.",
+        "prerequisites": [],
+        "effects": [
+          "frontend_web",
+          "javascript_programming"
+        ],
+        "cost": 18,
+        "difficulty": "baja",
+        "duration_hours": 30,
+        "modality": "online"
+      },
+      {
+        "id": "web_cloud_sprint",
+        "title": "Web Cloud Sprint",
+        "description": "Ruta intensiva premium para frontend, JavaScript y cloud en poco tiempo.",
+        "prerequisites": [],
+        "effects": [
+          "frontend_web",
+          "javascript_programming",
+          "cloud_computing"
+        ],
+        "cost": 200,
+        "difficulty": "media",
+        "duration_hours": 85,
+        "modality": "online"
+      },
+    {
+      "id": "sql_mysql_basico",
+      "title": "SQL & MySQL Básico",
+      "description": "SQL básico y MySQL para principiantes.",
+      "prerequisites": [],
+      "effects": [
+        "bases_de_datos",
+        "sql"
+      ],
+      "cost": 12,
+      "difficulty": "baja",
+      "duration_hours": 24,
+      "modality": "online"
+    },
+    {
+      "id": "ml_ultra_comprimido",
+      "title": "Machine Learning Ultra Comprimido",
+      "description": "ML essentials en 3 meses. Algoritmos, sklearn, proyectos reales.",
+      "prerequisites": [
+        "python_programming",
+        "estadistica"
+      ],
+      "effects": [
+        "machine_learning",
+        "data_science"
+      ],
+      "cost": 150,
+      "difficulty": "media",
+      "duration_hours": 100,
+      "modality": "mixto"
+    },
+    {
+      "id": "Python_para_datos",
+      "title": "Python para Análisis de Datos",
+      "description": "Pandas, NumPy, Matplotlib. El toolkit de data.",
+      "prerequisites": [
+        "python_programming"
+      ],
+      "effects": [
+        "data_science"
+      ],
+      "cost": 10,
+      "difficulty": "baja",
+      "duration_hours": 30,
+      "modality": "online"
+    },
+    {
+      "id": "sklearn_guia_completa",
+      "title": "Scikit-learn Guía Completa",
+      "description": "Todos los algoritmos de sklearn con ejemplos reales.",
+      "prerequisites": [
+        "python_programming",
+        "estadistica"
+      ],
+      "effects": [
+        "machine_learning"
+      ],
+      "cost": 15,
+      "difficulty": "media",
+      "duration_hours": 40,
+      "modality": "online"
+    },
+    {
+      "id": "evaluacion_modelos_ml",
+      "title": "Evaluación y Validación de Modelos",
+      "description": "Cross-validation, hyperparameter tuning, métricas avanzadas.",
+      "prerequisites": [
+        "machine_learning"
+      ],
+      "effects": [
+        "data_science"
+      ],
+      "cost": 15,
+      "difficulty": "media",
+      "duration_hours": 30,
+      "modality": "online"
+    },
+    {
+      "id": "cybersecurity_bootcamp_14w",
+      "title": "Cybersecurity Bootcamp 14 Semanas",
+      "description": "Desde fundamentos hasta pentesting. Certificación incluida.",
+      "prerequisites": [],
+      "effects": [
+        "ciberseguridad_fundamentos",
+        "seguridad_informatica",
+        "redes_computadoras"
+      ],
+      "cost": 180,
+      "difficulty": "media",
+      "duration_hours": 90,
+      "modality": "mixto"
+    },
+    {
+      "id": "redes_seguras_basico",
+      "title": "Redes Seguras Básico",
+      "description": "Firewalls, VPN, detección de intruso básica.",
+      "prerequisites": [
+        "redes_computadoras"
+      ],
+      "effects": [
+        "ciberseguridad_fundamentos"
+      ],
+      "cost": 12,
+      "difficulty": "baja",
+      "duration_hours": 28,
+      "modality": "online"
+    },
+    {
+      "id": "criptografia_moderna",
+      "title": "Criptografía Moderna",
+      "description": "AES, RSA, hashing, APIs de crypto.",
+      "prerequisites": [
+        "logica_matematica"
+      ],
+      "effects": [
+        "criptografia"
+      ],
+      "cost": 18,
+      "difficulty": "media",
+      "duration_hours": 40,
+      "modality": "online"
+    },
+    {
+      "id": "penetracion_testing_basico",
+      "title": "Penetration Testing Básico",
+      "description": "Herramientas, metodología, reportes de vulnerabilidades.",
+      "prerequisites": [
+        "ciberseguridad_fundamentos"
+      ],
+      "effects": [
+        "seguridad_informatica"
+      ],
+      "cost": 20,
+      "difficulty": "media",
+      "duration_hours": 42,
+      "modality": "mixto"
+    },
+    {
+      "id": "ai_bootcamp_intensivo",
+      "title": "AI Bootcamp Intensivo 12 Semanas",
+      "description": "ML, NLP, Vision, LLMs. Proyecto final con datos reales.",
+      "prerequisites": [
+        "python_programming",
+        "estadistica",
+        "estructuras_datos"
+      ],
+      "effects": [
+        "inteligencia_artificial",
+        "machine_learning",
+        "deep_learning"
+      ],
+      "cost": 200,
+      "difficulty": "alta",
+      "duration_hours": 110,
+      "modality": "mixto"
+    },
+    {
+      "id": "nlp_introduccion",
+      "title": "NLP Introducción",
+      "description": "Procesamiento de lenguaje natural: tokenización, embeddings, transformers.",
+      "prerequisites": [
+        "python_programming",
+        "machine_learning"
+      ],
+      "effects": [
+        "inteligencia_artificial"
+      ],
+      "cost": 15,
+      "difficulty": "media",
+      "duration_hours": 45,
+      "modality": "online"
+    },
+    {
+      "id": "vision_por_computadora_basico",
+      "title": "Visión por Computadora Básico",
+      "description": "OpenCV, convolución, detección de objetos.",
+      "prerequisites": [
+        "python_programming",
+        "machine_learning"
+      ],
+      "effects": [
+        "deep_learning"
+      ],
+      "cost": 18,
+      "difficulty": "media",
+      "duration_hours": 40,
+      "modality": "online"
+    },
+    {
+      "id": "llm_prompt_engineering",
+      "title": "LLMs & Prompt Engineering",
+      "description": "Working with GPT, Claude, open-source LLMs. Fine-tuning basics.",
+      "prerequisites": [
+        "inteligencia_artificial"
+      ],
+      "effects": [
+        "inteligencia_artificial"
+      ],
+      "cost": 17,
+      "difficulty": "media",
+      "duration_hours": 30,
+      "modality": "online"
+    },
+    {
+      "id": "git_workflow_basico",
+      "title": "Git Workflow Básico",
+      "description": "Git, ramas, merges y flujo de trabajo colaborativo desde cero.",
+      "prerequisites": [],
+      "effects": [
+        "version_control"
+      ],
+      "cost": 0,
+      "difficulty": "baja",
+      "duration_hours": 20,
+      "modality": "online"
+    },
+    {
+      "id": "logica_practica_programacion",
+      "title": "Lógica Práctica para Programación",
+      "description": "Razonamiento lógico, tablas de verdad y resolución de problemas.",
+      "prerequisites": [],
+      "effects": [
+        "logica_matematica"
+      ],
+      "cost": 5,
+      "difficulty": "baja",
+      "duration_hours": 20,
+      "modality": "online"
+    },
+    {
+      "id": "poo_con_python",
+      "title": "POO con Python",
+      "description": "Clases, objetos y herencia aplicados de forma práctica con Python.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "programacion_orientada_objetos"
+      ],
+      "cost": 8,
+      "difficulty": "baja",
+      "duration_hours": 24,
+      "modality": "online"
+    },
+    {
+      "id": "qa_manual_basico",
+      "title": "QA Manual Básico",
+      "description": "Pruebas manuales, casos de prueba y reportes de incidencias.",
+      "prerequisites": [],
+      "effects": [
+        "software_testing"
+      ],
+      "cost": 5,
+      "difficulty": "baja",
+      "duration_hours": 20,
+      "modality": "online"
+    },
+    {
+      "id": "ai_ethics_practico",
+      "title": "IA Ética Práctica",
+      "description": "Sesgos, privacidad, transparencia y toma de decisiones responsable.",
+      "prerequisites": [
+        "inteligencia_artificial"
+      ],
+      "effects": [
+        "ai_ethics"
+      ],
+      "cost": 10,
+      "difficulty": "baja",
+      "duration_hours": 20,
+      "modality": "online"
+    },
+    {
+      "id": "ux_research_basico",
+      "title": "UX Research Básico",
+      "description": "Investigación de usuarios, prototipos y pruebas de usabilidad.",
+      "prerequisites": [],
+      "effects": [
+        "ui_ux"
+      ],
+      "cost": 8,
+      "difficulty": "baja",
+      "duration_hours": 24,
+      "modality": "online"
+    },
+    {
+      "id": "security_awareness",
+      "title": "Security Awareness",
+      "description": "Buenas prácticas de seguridad, contraseñas y prevención de ataques comunes.",
+      "prerequisites": [],
+      "effects": [
+        "seguridad_informatica",
+        "ciberseguridad_fundamentos"
+      ],
+      "cost": 8,
+      "difficulty": "baja",
+      "duration_hours": 18,
+      "modality": "online"
+    },
+    {
+      "id": "distributed_cloud_patterns",
+      "title": "Distributed Cloud Patterns",
+      "description": "Arquitecturas distribuidas y despliegues en la nube para sistemas escalables.",
+      "prerequisites": [
+        "cloud_computing"
+      ],
+      "effects": [
+        "distributed_systems"
+      ],
+      "cost": 20,
+      "difficulty": "media",
+      "duration_hours": 40,
+      "modality": "mixto"
+    },
+    {
+      "id": "mobile_ui_fasttrack",
+      "title": "Mobile UI Fast Track",
+      "description": "Diseño y desarrollo rápido de interfaces móviles con enfoque visual.",
+      "prerequisites": [
+        "programacion_basica"
+      ],
+      "effects": [
+        "mobile_development",
+        "ui_ux"
+      ],
+      "cost": 20,
+      "difficulty": "media",
+      "duration_hours": 35,
+      "modality": "online"
+    },
+    {
+      "id": "mobile_design_sprint",
+      "title": "Mobile Design Sprint",
+      "description": "Ruta compacta para crear apps móviles con buen diseño y navegación.",
+      "prerequisites": [],
+      "effects": [
+        "mobile_development",
+        "ui_ux"
+      ],
+      "cost": 40,
+      "difficulty": "media",
+      "duration_hours": 45,
+      "modality": "online"
+    },
+    {
+      "id": "mobile_foundations_practicas",
+      "title": "Mobile Foundations Prácticas",
+      "description": "Bases de desarrollo móvil desde cero con ejemplos sencillos.",
+      "prerequisites": [],
+      "effects": [
+        "mobile_development"
+      ],
+      "cost": 0,
+      "difficulty": "baja",
+      "duration_hours": 20,
+      "modality": "online"
+    },
+    {
+      "id": "mobile_ui_foundations",
+      "title": "Mobile UI Foundations",
+      "description": "Diseño de interfaces móviles y patrones de navegación.",
+      "prerequisites": [],
+      "effects": [
+        "ui_ux"
+      ],
+      "cost": 5,
+      "difficulty": "baja",
+      "duration_hours": 18,
+      "modality": "online"
+    },
+    {
+      "id": "mobile_testing_basico",
+      "title": "Mobile Testing Básico",
+      "description": "Pruebas manuales básicas para aplicaciones móviles sencillas.",
+      "prerequisites": [],
+      "effects": [
+        "software_testing"
+      ],
+      "cost": 5,
+      "difficulty": "baja",
+      "duration_hours": 18,
+      "modality": "online"
+    },
+    {
+      "id": "mobile_product_sprint_basico",
+      "title": "Mobile Product Sprint Básico",
+      "description": "Ruta corta para crear una app móvil funcional con diseño básico.",
+      "prerequisites": [],
+      "effects": [
+        "mobile_development",
+        "ui_ux"
+      ],
+      "cost": 10,
+      "difficulty": "baja",
+      "duration_hours": 30,
+      "modality": "online"
+    },
+    {
+      "id": "mobile_testing_track",
+      "title": "Mobile Testing Track",
+      "description": "Ruta práctica centrada en desarrollo móvil y testing funcional.",
+      "prerequisites": [],
+      "effects": [
+        "mobile_development",
+        "software_testing"
+      ],
+      "cost": 16,
+      "difficulty": "baja",
+      "duration_hours": 28,
+      "modality": "online"
+    },
+    {
+      "id": "mobile_testing_lab",
+      "title": "Mobile Testing Lab",
+      "description": "Pruebas funcionales y automatizadas para aplicaciones móviles.",
+      "prerequisites": [
+        "mobile_development"
+      ],
+      "effects": [
+        "software_testing"
+      ],
+      "cost": 15,
+      "difficulty": "media",
+      "duration_hours": 20,
+      "modality": "online"
+    },
+    {
+      "id": "mobile_fullstack_sprint",
+      "title": "Mobile Fullstack Sprint",
+      "description": "Ruta intensiva que cubre desarrollo móvil, diseño UI/UX y testing.",
+      "prerequisites": [],
+      "effects": [
+        "mobile_development",
+        "ui_ux",
+        "software_testing"
+      ],
+      "cost": 220,
+      "difficulty": "media",
+      "duration_hours": 90,
+      "modality": "online"
+    },
+    {
+      "id": "web_testing_automation",
+      "title": "Web Testing Automation",
+      "description": "Automatización de pruebas web con buenas prácticas de QA.",
+      "prerequisites": [
+        "frontend_web"
+      ],
+      "effects": [
+        "software_testing"
+      ],
+      "cost": 12,
+      "difficulty": "media",
+      "duration_hours": 24,
+      "modality": "online"
+    },
+    {
+      "id": "cloud_distributed_basics",
+      "title": "Cloud Distributed Basics",
+      "description": "Introducción a sistemas distribuidos en entornos cloud.",
+      "prerequisites": [
+        "cloud_computing"
+      ],
+      "effects": [
+        "distributed_systems",
+        "cloud_computing"
+      ],
+      "cost": 15,
+      "difficulty": "media",
+      "duration_hours": 30,
       "modality": "online"
     }
   ]
