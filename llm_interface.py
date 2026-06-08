@@ -8,7 +8,7 @@ import os
 load_dotenv()
 
 class LLMInterface:
-    def __init__(self, api_key=None, model_name="llama-3.1-8b-instant"):     #"llama-3.1-8b-instant"   o  #"llama-3.3-70b-versatile" 
+    def __init__(self, api_key=None, model_name="llama-3.3-70b-versatile"):     #"llama-3.1-8b-instant"   o  #"llama-3.3-70b-versatile" 
         self.model_name = model_name
         self.api_key = api_key or os.getenv("API_KEY")
         self.client = OpenAI(api_key=self.api_key, base_url="https://api.groq.com/openai/v1")
@@ -309,17 +309,15 @@ class LLMInterface:
     def compare_and_evaluate_trajectories(self, user_text, trajectories_dict):
         """
         Compara múltiples trayectorias generadas por diferentes algoritmos de búsqueda,
-        las evalúa bajo restricciones cualitativas y resume sus ventajas, desventajas
-        y la conclusión más alineada con lo que busca el usuario.
-        
-        :param user_text: Entrada original del usuario (metas, tiempo, dinero, modalidad).
-        :param trajectories_dict: Diccionario donde la clave es el nombre del algoritmo 
-                                  y el valor es la lista de cursos de esa trayectoria.
+        realizando un análisis cualitativo, cruzado y discursivo detallado basado 
+        estrictamente en sus datos reales (costo, tiempo, volumen y progresión pedagógica),
+        calculando previamente las verdades matemáticas para evitar alucinaciones relativas.
         """
         cleaned_payload = {}
         route_summaries = {}
         route_ids_map = {}  
         
+        # 1. Extracción de métricas base y construcción del payload limpio
         for algo_name, courses_list in trajectories_dict.items():
             cleaned_payload[algo_name] = []
             total_cost = 0
@@ -355,6 +353,13 @@ class LLMInterface:
                 route_ids_map[course_ids_tuple] = []
             route_ids_map[course_ids_tuple].append(algo_name)
 
+        if not route_summaries:
+            return {
+                "analisis_detallado_alternativas": "No se encontraron trayectorias válidas generadas por los algoritmos para auditar.",
+                "guia_orientacion_usuario": "Por favor, intente con otra consulta."
+            }
+
+        # 2. Detección e informe de rutas idénticas
         duplicates_info = {}
         for course_ids_tuple, algo_names in route_ids_map.items():
             if len(algo_names) > 1:
@@ -362,99 +367,116 @@ class LLMInterface:
                 for dup_name in algo_names[1:]:
                     duplicates_info[dup_name] = primary
 
-        route_summary_text = json.dumps(route_summaries, ensure_ascii=False, indent=2)
+        route_summary_text = ""
+        for algo, metrics in route_summaries.items():
+            route_summary_text += f"- {algo}: Costo Total = ${metrics['total_cost']}, Tiempo Total = {metrics['total_time']} horas, Cantidad de Cursos = {metrics['courses']}.\n"
+
         duplicates_text = ""
         if duplicates_info:
             duplicates_text = "\n\nRUTAS IDÉNTICAS DETECTADAS:\n"
             for dup_name, primary_name in duplicates_info.items():
                 duplicates_text += f"- {dup_name} aporta exactamente lo mismo que {primary_name} (mismos cursos, misma secuencia).\n"
 
+        # =========================================================================
+        # 3. PREPROCESAMIENTO DE VERDAD MATEMÁTICA EN PYTHON (CRUCIAL PARA COMPARACIONES)
+        # =========================================================================
+        try:
+            metrica_tiempo = {k: v["total_time"] for k, v in route_summaries.items()}
+            metrica_costo = {k: v["total_cost"] for k, v in route_summaries.items()}
+            metrica_cursos = {k: v["courses"] for k, v in route_summaries.items()}
+            
+            mas_rapido_algo = min(metrica_tiempo, key=metrica_tiempo.get)
+            mas_lento_algo = max(metrica_tiempo, key=metrica_tiempo.get)
+            mas_barato_algo = min(metrica_costo, key=metrica_costo.get)
+            mas_caro_algo = max(metrica_costo, key=metrica_costo.get)
+            menos_cursos_algo = min(metrica_cursos, key=metrica_cursos.get)
+            mas_cursos_algo = max(metrica_cursos, key=metrica_cursos.get)
+        except Exception as e:
+            print(f"[Error en Preprocesamiento Numérico]: {e}")
+            mas_rapido_algo = mas_lento_algo = mas_barato_algo = mas_caro_algo = "N/A"
+            menos_cursos_algo = mas_cursos_algo = "N/A"
+
+        # Mapear las secuencias explícitas de dificultad para dárselas procesadas
+        secuencias_dificultad_texto = ""
+        for algo, cursos in cleaned_payload.items():
+            dif_list = [str(c.get('difficulty', 'Baja')).capitalize() for c in cursos]
+            if dif_list:
+                secuencias_dificultad_texto += f"- Secuencia real de dificultad para {algo}: {' -> '.join(dif_list)}\n"
+
+        # Bloque inyectable con las verdades absolutas macro comparativas
+        verdades_numericas_computadas = f"""
+        VERDADES MATEMÁTICAS CALCULADAS POR EL SISTEMA (PROHIBIDO TOTALMENTE CONTRADECIR ESTOS DATOS RELATIVOS):
+        - La ruta MÁS RÁPIDA (menos horas totales acumuladas) es estrictamente: {mas_rapido_algo} ({metrica_tiempo.get(mas_rapido_algo, 0)} horas).
+        - La ruta MÁS LENTA (más horas totales acumuladas) es estrictamente: {mas_lento_algo} ({metrica_tiempo.get(mas_lento_algo, 0)} horas).
+        - La ruta MÁS BARATA (menor costo monetario acumulado) es estrictamente: {mas_barato_algo} (${metrica_costo.get(mas_barato_algo, 0)} USD).
+        - La ruta MÁS CARA (mayor costo monetario acumulado) es estrictamente: {mas_caro_algo} (${metrica_costo.get(mas_caro_algo, 0)} USD).
+        - La ruta con MENOS CURSOS TOTALES (trayectoria más corta en pasos/trámites) es: {menos_cursos_algo} ({metrica_cursos.get(menos_cursos_algo, 0)} cursos).
+        - La ruta con MÁS CURSOS TOTALES (trayectoria formativa más fragmentada) es: {mas_cursos_algo} ({metrica_cursos.get(mas_cursos_algo, 0)} cursos).
+        
+        SECUENCIAS REALES DE PASOS ACADÉMICOS:
+        {secuencias_dificultad_texto}
+        """
+
+        # =========================================================================
+        # 4. DISEÑO DEL PROMPT COMPRENSIVO (CON ENFOQUE GLOBAL Y CRUCES DE EFICIENCIA)
+        # =========================================================================
         prompt = f"""
-        Eres un auditor académico de nivel doctoral y experto en diseño curricular de sistemas informáticos e Inteligencia Artificial.
-        Tu tarea es realizar un análisis comparativo riguroso de múltiples trayectorias alternativas sugeridas por diferentes algoritmos de búsqueda para un estudiante.
+        Eres un asesor académico de nivel doctoral en diseño curricular y un experto en la optimización de trayectorias formativas. Tu tarea es realizar un análisis comparativo cruzado y crítico de las trayectorias sugeridas por los algoritmos de búsqueda basándote ESTRICTAMENTE en los datos de entrada provistos.
 
         REQUISITOS Y RESTRICCIONES REALES DEL USUARIO:
         "{user_text}"
 
-        TRAYECTORIAS CANDIDATAS DISPONIBLES:
+        TRAYECTORIAS CANDIDATAS DISPONIBLES (Analiza los datos crudos de este JSON):
         {json.dumps(cleaned_payload, ensure_ascii=False, indent=2)}
 
-        RESUMEN EXACTO DE CADA RUTA (usa estos números sin cambiarlos):
+        RESUMEN DE MÉTRICAS GLOBALES REALES:
         {route_summary_text}{duplicates_text}
 
-        INSTRUCCIONES METODOLÓGICAS PARA TU ANÁLISIS:
-        1. USA SOLAMENTE LOS NÚMEROS DEL "RESUMEN EXACTO DE CADA RUTA" para costo, tiempo y número de cursos.
-        2. NO INVENTES cifras. Si dices que una ruta es la más barata o la más rápida, debe coincidir exactamente con el resumen.
-        3. DENSIDAD PEDAGÓGICA Y TRANSICIÓN: Evalúa la curva de aprendizaje. Pasar de una dificultad 'baja' a 'alta' de forma abrupta es un punto negativo.
-        4. CONSISTENCIA DE OBJETIVOS: Explica qué ruta cubre mejor los objetivos del usuario con base en sus efectos reales.
-        5. SIN LENGUAJE DE COMPETENCIA: No hables de "ganadores", "perdedores" o "derrotas". Enfoca el análisis en trade-offs claros.
-        6. Si una ruta tiene menos costo total que otra, no la llames más costosa.
-        7. Si una ruta tiene menos tiempo total que otra, no la digas más lenta.
-        8. La conclusión final no debe centrarse solo en costo/tiempo: también debe mencionar cobertura de objetivos, progresión pedagógica, prerrequisitos y modalidad cuando aporten al análisis.
-        9. Si una ruta es mejor en costo/tiempo pero peor en cobertura pedagógica, dilo explícitamente como un trade-off.
-        10. SI HAY RUTAS IDÉNTICAS: Incluye una nota en los pros o cons de la ruta duplicada diciendo "Esta ruta aporta exactamente lo mismo que [Nombre de ruta original]" o similar.
+        {verdades_numericas_computadas}
+
+        METODOLOGÍA DE AUDITORÍA CRÍTICA COMPLETA:
+        1. INSPECCIÓN DETALLADA Y VERACIDAD LOGICIAL: Está TERMINANTEMENTE PROHIBIDO alterar las relaciones de mayor o menor. Si el sistema calculó que una ruta es la de menos horas, es la más rápida, sin importar qué algoritmo sea. Valida cada adjetivo contrastándolo con las 'VERDADES MATEMÁTICAS CALCULADAS POR EL SISTEMA'.
+        2. ANÁLISIS DE EFICIENCIA Y CRUCES DE PROPORCIÓN (OBLIGATORIO): Debes contrastar las rutas entre sí evaluando las siguientes métricas cruzadas:
+           - PROPORCIÓN TIEMPO/DINERO (Costo-Eficiencia): Analiza cuál trayectoria ofrece el mayor valor educativo por unidad monetaria o temporal invertida. Si un plan destruye el trade-off clásico siendo sumamente económico y rápido al mismo tiempo, acláralo explícitamente como la ruta de máxima eficiencia.
+           - DENSIDAD HORARIA POR CURSO: Analiza la relación entre cantidad de cursos y horas totales. Contrasta si un plan de pocos cursos ofrece asignaturas masivas y densas (provocando un potencial cuello de botella de tiempo o fatiga mental), o si una ruta con más cursos ofrece cápsulas más cortas, ágiles y fragmentadas.
+        3. AUDITORÍA SECTORIAL DE LA DIFICULTAD PEDAGÓGICA: Observa las secuencias inyectadas:
+           - Si una secuencia pasa directamente de 'Baja' a 'Alta' sin pisar el escalón 'Media', descríbelo explícitamente en el párrafo como un 'Salto abrupto y crítico de dificultad (Brecha pedagógica)'.
+           - Si la secuencia progresa incluyendo el escalón intermedio ('Baja -> Media -> Alta'), descríbelo como una 'Curva de aprendizaje balanceada y progresiva'.
+        4. ANÁLISIS DE CONTENIDO: Examina los títulos y temas para validar si cubren las necesidades específicas planteadas o si desvían el foco académico.
+        5. ORIGINALIDAD Y PROHIBICIÓN DE COPIAR TEXTOS: Prohibido usar las mismas estructuras de oraciones para describir alternativas. Cada párrafo debe reflejar dinámicamente la personalidad única de sus datos.
 
         Reglas estrictas de salida:
-        Responde ÚNICAMENTE con un objeto JSON perfectamente estructurado de esta forma, sin bloques markdown:
+        Responde ÚNICAMENTE con un objeto JSON estructurado exactamente con las siguientes dos llaves de texto plano, sin bloques de código markdown:
         {{
-            "final_conclusion": "Un desglose analítico detallado que explique de forma clara los trade-offs económicos y pedagógicos entre las opciones, concluyendo cuál es el balance ideal para el perfil específico del usuario.",
-            "ranking": [
-                {{
-                    "name": "[Nombre exacto de la trayectoria, ej: 'Ruta UCS (Costo)']",
-                    "score": [Número entero de 1 a 100],
-                    "pros": [
-                        "Ventaja específica basada en datos reales (ej: 'Es la opción más barata con un costo total de $28')",
-                        "Ventaja cualitativa/pedagógica (ej: 'Mantiene una transición de dificultad baja a media ideal para principiantes')"
-                    ],
-                    "cons": [
-                        "Desventaja específica (ej: 'El curso 'ia_completa_2meses' presenta un salto brusco a dificultad alta')",
-                        "Desventaja de recursos (ej: 'Consume 218 horas, acercándose considerablemente al límite del usuario')"
-                    ]
-                }}
-            ],
-            "recommended_trajectory_name": "[Nombre exacto de la trayectoria que ofrece el mejor equilibrio para el usuario]"
+            "analisis_detallado_alternativas": "Analiza minuciosamente cada ruta aplicando la metodología paso a paso, integrando de forma obligatoria los contrastes globales de proporción tiempo/dinero y densidad por curso frente a las otras opciones. IMPORTANTE: Usa etiquetas HTML para estructurar. Separa cada ruta iniciando con un título en negrita como '<b>• Ruta [Nombre del Algoritmo]:</b><br>', destaca las métricas críticas, proporciones y hallazgos en negrita (ej: '<b>$150</b>', '<b>máxima eficiencia financiera</b>', '<b>densidad horaria por curso</b>', '<b>salto abrupto de dificultad</b>') y pon obligatoriamente saltos de línea '<br><br>' al finalizar la evaluación de cada trayectoria de forma que queden perfectamente separadas.",
+            "guia_orientacion_usuario": "Escribe aquí recomendaciones de decisión personalizadas evaluando los escenarios reales de trade-off y las proporciones optimizadas que se demostraron en las verdades matemáticas. IMPORTANTE: Usa viñetas HTML, por ejemplo:<br><ul><li><b>Si tu prioridad es la mejor proporción tiempo/dinero (Costo-Eficiencia):</b> Te conviene la ruta... porque según los datos...</li><li><b>Si prefieres cursos más cortos, menos densos y fragmentados:</b> Tu opción recomendada es... debido a que ofrece...</li></ul>"
         }}
-
-        IMPORTANTE: 
-        - Sé sumamente específico. Si mencionas costo o tiempo, escribe los valores exactos del resumen.
-        - La conclusión final debe comparar explícitamente al menos dos trayectorias con base en sus métricas reales y en su valor pedagógico.
-        - La conclusión debe sonar equilibrada: por ejemplo, explicar que una ruta es más económica pero otra cubre mejor los objetivos o tiene una progresión más adecuada.
-        - Todas las trayectorias provistas son válidas a nivel de grafos; concéntrate en la experiencia educativa y la optimización de recursos.
-        - Si dos rutas son idénticas, menciona explícitamente cuál es el duplicado en el ranking.
         """
 
+        # 5. Inferencia a la API garantizando el formato JSON
         response_text = self._call_llm(prompt, expect_json=True)
         if not response_text:
             return {
-                "final_conclusion": "No se pudo obtener respuesta del LLM debido a un error de comunicación.",
-                "ranking": [],
-                "recommended_trajectory_name": "No determinado"
+                "analisis_detallado_alternativas": "No se pudo obtener respuesta del LLM debido a un error de comunicación.",
+                "guia_orientacion_usuario": "Por favor, intente la búsqueda nuevamente."
             }
 
         try:
-            cleaned_text = response_text
-            if cleaned_text.startswith("```"):
-                lines = cleaned_text.splitlines()
-                if lines[0].startswith("```"):
-                    lines = lines[1:]
-                if lines[-1].startswith("```"):
-                    lines = lines[:-1]
-                cleaned_text = "\n".join(lines).strip()
+            cleaned_text = response_text.strip()
+            
+            import re
+            match = re.search(r'\{.*\}', cleaned_text, re.DOTALL)
+            if match:
+                cleaned_text = match.group(0)
 
             data = json.loads(cleaned_text)
-            
-            if "final_conclusion" not in data:
-                data["final_conclusion"] = data.get("justification", data.get("conclusion_final", "Sin conclusión disponible."))
-            if "recommended_trajectory_name" not in data:
-                data["recommended_trajectory_name"] = data.get("best_trajectory_name", "No determinado")
-                
             return data
+
         except Exception as e:
-            print(f"Error parseando la comparación del LLM: {e}. Respuesta cruda: {response_text}")
+            print(f"Error parseando la comparación cualitativa del LLM: {e}. Respuesta cruda: {response_text}")
             return {
-                "final_conclusion": "Error al procesar el formato estructurado del análisis comparativo.",
-                "ranking": [],
-                "recommended_trajectory_name": "Error de parsing"
+                "analisis_detallado_alternativas": f"Error de formato al procesar el análisis estructural.\nRespuesta original:\n{response_text}",
+                "guia_orientacion_usuario": "No se pudo descodificar la guía de decisiones por un error de formato JSON."
             }
         
     def evaluate_adaptive_trajectory(self, user_text, adaptive_trajectory, all_modalities, all_difficulties):
@@ -474,7 +496,6 @@ class LLMInterface:
         money_requested = self.get_money(user_text)
         time_requested = self.get_time(user_text)
 
-       
         route_skills = set()
         route_modalities = set()
         route_difficulties = set()
@@ -502,6 +523,7 @@ class LLMInterface:
                 "effects": course.get("effects", [])
             })
 
+        # Rediseño del prompt para unificar la respuesta en un formato de párrafo fluido
         prompt = f"""
         Eres un consejero académico experto. El usuario solicitó lo siguiente:
         
@@ -529,12 +551,10 @@ class LLMInterface:
         - Tiempo máximo: {time_requested if time_requested != 10000000000000 else 'Sin límite'} horas
         
         Tu tarea es:
-        1. Identificar qué restricciones fue necesario relajar para encontrar esta ruta.
-        2. Explicar de forma clara y empática por qué se necesitó relajar cada restricción.
-        3. Destacar los aspectos positivos de esta ruta alternativa.
-        4. Proporcionar una justificación pedagógica de por qué esta ruta sigue siendo valiosa.
+        1. Identificar qué restricciones fue necesario relajar para encontrar esta ruta y explicar de forma clara y empática por qué se necesitó relajar en la sección correspondiente.
+        2. Redactar una explicación pedagógica general en forma de PÁRRAFO FLUIDO Y CONTINUO. Este párrafo debe integrar obligatoriamente tanto los aspectos positivos y ventajas de esta ruta alternativa como la justificación de por qué sigue siendo una opción excelente para el estudiante. NO uses listas, viñetas, plecas ni guiones en este párrafo.
         
-        Responde ÚNICAMENTE con un JSON así:
+        Responde ÚNICAMENTE con un JSON con la siguiente estructura:
         {{
             "restricciones_relajadas": [
                 {{
@@ -544,11 +564,7 @@ class LLMInterface:
                     "razon": "[Explicación breve de por qué no hay otras opciones]"
                 }}
             ],
-            "aspectos_positivos": [
-                "Ventaja específica (ej: 'Cubre todas las metas de aprendizaje en solo 180 horas')",
-                "Otra ventaja..."
-            ],
-            "justificacion_general": "Un párrafo que explique por qué esta ruta sigue siendo una buena opción pedagógica a pesar de las diferencias."
+            "justificacion_general": "[Escribe aquí el párrafo completo, fluido y sin viñetas que combine los aspectos positivos, beneficios y la justificación pedagógica de la ruta alternativa]"
         }}
         """
 
@@ -556,7 +572,6 @@ class LLMInterface:
         if not response_text:
             return {
                 "restricciones_relajadas": [],
-                "aspectos_positivos": [],
                 "justificacion_general": "No se pudo obtener análisis del LLM."
             }
 
@@ -576,6 +591,5 @@ class LLMInterface:
             print(f"Error parseando evaluación adaptativa: {e}")
             return {
                 "restricciones_relajadas": [],
-                "aspectos_positivos": [],
                 "justificacion_general": f"Error al procesar el análisis. Detalles: {str(e)}"
             }

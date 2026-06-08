@@ -1,12 +1,18 @@
 import json
 from pprint import pprint
-from llm_interface import LLMInterface
 import os
 import time
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def load_dataset(path='dataset.json'):
+from llm_interface import LLMInterface
+
+
+def load_dataset(path=None):
+    if path is None:
+        # Construir ruta relativa al directorio del script
+        path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'dataset.json')
     with open(path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     modalities = []
