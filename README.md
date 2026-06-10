@@ -104,7 +104,7 @@ Para desplegar y probar los diferentes módulos del proyecto, siga estos pasos e
    **Nota:** Para conocer en profundidad todas las capacidades de control, componentes lógicos y el funcionamiento detallado de esta interfaz visual, dispone de un manual de usuario en el archivo manual_usuario.pdf
 
 4. **Ejecutar Pruebas Unitarias de Extracción del LLM:**
-   Este script está diseñado exclusivamente para evaluar el comportamiento aislado del componente de Inteligencia Artificial. Se encarga de auditar la precisión del LLM al extraer habilidades iniciales, objetivos finales, presupuestos, límites de tiempo y modalidades a partir de lenguaje natural sin interactuar con los algoritmos del planificador. Cuenta con conjunto de 12 casos de prueba distintos. Puede ejecutar todos los casos en bloque o filtrar para probar un único caso específico pasando su número como argumento:
+   Este script está diseñado exclusivamente para evaluar el comportamiento aislado del componente de Inteligencia Artificial. Se encarga de auditar la precisión del LLM al extraer habilidades iniciales, objetivos finales, presupuestos, límites de tiempo y modalidades a partir de lenguaje natural sin interactuar con los algoritmos del planificador. Cuenta con conjunto de 13 casos de prueba distintos. Puede ejecutar todos los casos en bloque o filtrar para probar un único caso específico pasando su número como argumento:
 
    ```bash
    # Ejecutar todos los casos de prueba del planificador

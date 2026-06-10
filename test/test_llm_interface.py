@@ -29,6 +29,7 @@ def load_dataset(path=None):
 
 
 EXAMPLES = [
+    "Quiero ser chef profesional",
     "Quiero ser experto en inteligencia artificial, solo con cursos online, con un presupuesto de 100 dolares y en solo 3 meses",
     "Me interesa desarrollo web pero ya conozco bases de datos. Puedo invertir 50 y prefiero presencial",                    
     "No sé nada, quiero empezar desde cero y aprender programación, tengo  6 meses",                 

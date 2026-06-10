@@ -9,20 +9,20 @@ load_dotenv()
 
 class LLMInterface:
     def __init__(self, api_key=None, model_name="llama-3.3-70b-versatile"):     #"llama-3.1-8b-instant"   o  #"llama-3.3-70b-versatile" 
-        self.model_name = model_name
-        self.api_key = api_key or os.getenv("API_KEY")
-        self.client = OpenAI(api_key=self.api_key, base_url="https://api.groq.com/openai/v1")
+        self.model_name = model_name                      #modelo
+        self.api_key = api_key or os.getenv("API_KEY")    #api key
+        self.client = OpenAI(api_key=self.api_key, base_url="https://api.groq.com/openai/v1")          #cliente Groq
 
-    def _call_llm(self, prompt, expect_json=False):
+    def _call_llm(self, prompt, expect_json=False):     #Método privado que encapsula las llamadas directas a la API de Groq
         try:
             extra_params = {}
-            if expect_json:
+            if expect_json:        # Activa el modo JSON a nivel de API
                 extra_params["response_format"] = {"type": "json_object"}
 
             response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=[{"role": "user", "content": prompt}],
-                temperature=0.1,
+                temperature=0.1,        #Temperatura baja para asegurar consistencia y determinismo en las extracciones
                 **extra_params
             )
             return response.choices[0].message.content.strip()
@@ -30,7 +30,7 @@ class LLMInterface:
             print(f"Error llamando a Groq: {e}")
             return None
 
-    def get_goals_from_text(self, user_text, skills_list):
+    def get_goals_from_text(self, user_text, skills_list):      #Analiza la consulta en lenguaje natural para extraer los objetivos
         prompt = f"""
         Eres un extractor de entidades experto en educación. Tu única tarea es identificar cuáles de las habilidades permitidas en la lista son metas académicas o profesionales del usuario.
 
@@ -63,13 +63,13 @@ class LLMInterface:
             return []
 
         try:
-            data = json.loads(response_text)
+            data = json.loads(response_text)          # Convierte la respuesta en un diccionario y extrae la lista de metas
             return data.get("goals", [])
         except Exception as e:
             print(f"Error parseando metas en LLM: {e}. Respuesta cruda: {response_text}")
             return []
 
-    def get_start_skill(self, user_text, skills_list):
+    def get_start_skill(self, user_text, skills_list):        #Interpreta el texto para identificar las habilidades actuales
         prompt = f"""
         Eres un extractor de entidades experto en educación. Tu única tarea es identificar cuáles de las habilidades permitidas en la lista el usuario YA SABE o CONOCE en el presente.
 
@@ -106,13 +106,13 @@ class LLMInterface:
             return []
 
         try:
-            data = json.loads(response_text)
+            data = json.loads(response_text)         # Convierte la respuesta en un diccionario y extrae la lista de metas
             return data.get("start_skills", [])
         except Exception as e:
             print(f"Error parseando conocimientos en LLM: {e}. Respuesta cruda: {response_text}")
             return []
 
-    def get_money(self, user_text):
+    def get_money(self, user_text):         #Extrae el presupuesto financiero límite introducido por el usuario
         prompt = f"""
         Eres un extractor de presupuesto analítico. Tu tarea es extraer la cantidad de dinero disponible.
 
@@ -125,17 +125,17 @@ class LLMInterface:
         "{user_text}"
         """
         response_text = self._call_llm(prompt, expect_json=True)
-        if not response_text:
+        if not response_text:      # Si falla la llamada, asume un presupuesto infinito virtual para no bloquear las búsquedas
             return 10000000000000
 
         try:
-            data = json.loads(response_text)
+            data = json.loads(response_text)     # Si retorna -1 indica sin restricciones; se reemplaza por el presupuesto infinito
             num = int(data.get("money", -1))
             return 10000000000000 if num == -1 else num
         except:
             return 10000000000000
 
-    def get_time(self, user_text):
+    def get_time(self, user_text):         #Extrae la restricción temporal descrita en la consulta, y la normaliza a horas estimadas
         prompt = f"""
         Eres un extractor de tiempo educativo. Tu tarea es identificar el plazo o duración mencionado por el usuario.
 
@@ -164,7 +164,7 @@ class LLMInterface:
             cantidad = int("".join([c for c in parts[0] if c.isdigit()]))
             unidad = parts[1]
 
-            if "mes" in unidad:
+            if "mes" in unidad:    # Lógica de Parseo y Conversión a Horas, se asume 8 horas diarias de jornada academica, cada mes con 30 dias y cada ano con 365 dias
                 return cantidad * 30 * 8
             elif "semana" in unidad:
                 return cantidad * 7 * 8
@@ -178,7 +178,7 @@ class LLMInterface:
         except:
             return 10000000000000
 
-    def get_modality(self, user_text, modalities):
+    def get_modality(self, user_text, modalities):    #Interpreta semánticamente las preferencias sobre la modalidad de estudio
         prompt = f"""
         Eres un extractor de modalidades de estudio experto. Tu tarea es mapear la preferencia del usuario con la lista permitida: {modalities}
 
@@ -217,7 +217,7 @@ class LLMInterface:
             if "NINGUNA" in res or not res:
                 return modalities
 
-            normalized_text = str(user_text).lower()
+            normalized_text = str(user_text).lower()    # Lógica secundaria para mitigar oraciones de rechazo ambiguas
             rejects_presential = any(phrase in normalized_text for phrase in [
                 "no me gustan los cursos presenciales",
                 "no me gusta la modalidad presencial",
@@ -258,7 +258,7 @@ class LLMInterface:
         except:
             return modalities
 
-    def get_difficulty(self, user_text, difficulties):
+    def get_difficulty(self, user_text, difficulties):    #Identifica si el usuario exige un nivel de dificultad específico en las asignaturas o si se descartan niveles de forma explícita
         prompt = f"""
         Eres un extractor de texto experto en análisis de restricciones sobre dificultad académica.
 
@@ -300,13 +300,13 @@ class LLMInterface:
         try:
             data = json.loads(response_text)
             res = data.get("difficulties", [])
-            if "NINGUNA" in res or not res:
+            if "NINGUNA" in res or not res:   # Si no hay filtros directos, se asume que se aceptan todas las dificultades cargadas
                 return difficulties
             return res
         except:
             return difficulties
 
-    def compare_and_evaluate_trajectories(self, user_text, trajectories_dict):
+    def compare_and_evaluate_trajectories(self, user_text, trajectories_dict):     #Compara múltiples trayectorias generadas por los diferentes algoritmos de búsqueda (BFS, UCS, A*)
         """
         Compara múltiples trayectorias generadas por diferentes algoritmos de búsqueda,
         realizando un análisis cualitativo, cruzado y discursivo detallado basado 
@@ -317,7 +317,7 @@ class LLMInterface:
         route_summaries = {}
         route_ids_map = {}  
         
-        # 1. Extracción de métricas base y construcción del payload limpio
+        #Extracción de métricas base y construcción del payload limpio
         for algo_name, courses_list in trajectories_dict.items():
             cleaned_payload[algo_name] = []
             total_cost = 0
@@ -341,14 +341,14 @@ class LLMInterface:
                     "difficulty": course.get("difficulty")
                 })
 
-            route_summaries[algo_name] = {
+            route_summaries[algo_name] = {      # Estructura el resumen estadístico real para dárselo procesado al LLM
                 "courses": len(courses_list),
                 "course_ids": course_ids,
                 "total_cost": total_cost,
                 "total_time": total_time,
             }
             
-            course_ids_tuple = tuple(course_ids)
+            course_ids_tuple = tuple(course_ids)     # Identifica equivalencias en las soluciones para la lógica de agrupación dinámica
             if course_ids_tuple not in route_ids_map:
                 route_ids_map[course_ids_tuple] = []
             route_ids_map[course_ids_tuple].append(algo_name)
@@ -359,7 +359,7 @@ class LLMInterface:
                 "guia_orientacion_usuario": "Por favor, intente con otra consulta."
             }
 
-        # 2. Detección e informe de rutas idénticas
+        # detección e informe de rutas idénticas
         duplicates_info = {}
         for course_ids_tuple, algo_names in route_ids_map.items():
             if len(algo_names) > 1:
@@ -377,15 +377,13 @@ class LLMInterface:
             for dup_name, primary_name in duplicates_info.items():
                 duplicates_text += f"- {dup_name} aporta exactamente lo mismo que {primary_name} (mismos cursos, misma secuencia).\n"
 
-        # =========================================================================
-        # 3. PREPROCESAMIENTO DE VERDAD MATEMÁTICA EN PYTHON (CRUCIAL PARA COMPARACIONES)
-        # =========================================================================
+        #preporcesamiento de verdad matematica, (previene alucionaciones del LLM)
         try:
             metrica_tiempo = {k: v["total_time"] for k, v in route_summaries.items()}
             metrica_costo = {k: v["total_cost"] for k, v in route_summaries.items()}
             metrica_cursos = {k: v["courses"] for k, v in route_summaries.items()}
             
-            mas_rapido_algo = min(metrica_tiempo, key=metrica_tiempo.get)
+            mas_rapido_algo = min(metrica_tiempo, key=metrica_tiempo.get) # Cálculos de extremos numéricos absolutos
             mas_lento_algo = max(metrica_tiempo, key=metrica_tiempo.get)
             mas_barato_algo = min(metrica_costo, key=metrica_costo.get)
             mas_caro_algo = max(metrica_costo, key=metrica_costo.get)
@@ -403,7 +401,7 @@ class LLMInterface:
             if dif_list:
                 secuencias_dificultad_texto += f"- Secuencia real de dificultad para {algo}: {' -> '.join(dif_list)}\n"
 
-        # Bloque inyectable con las verdades absolutas macro comparativas
+        # Bloque inyectable con las verdades absolutas comparativas
         verdades_numericas_computadas = f"""
         VERDADES MATEMÁTICAS CALCULADAS POR EL SISTEMA (PROHIBIDO TOTALMENTE CONTRADECIR ESTOS DATOS RELATIVOS):
         - La ruta MÁS RÁPIDA (menos horas totales acumuladas) es estrictamente: {mas_rapido_algo} ({metrica_tiempo.get(mas_rapido_algo, 0)} horas).
@@ -416,10 +414,7 @@ class LLMInterface:
         SECUENCIAS REALES DE PASOS ACADÉMICOS:
         {secuencias_dificultad_texto}
         """
-
-        # =========================================================================
-        # 4. DISEÑO DEL PROMPT COMPRENSIVO (CON ENFOQUE GLOBAL Y CRUCES DE EFICIENCIA)
-        # =========================================================================
+        #Diseno del prompt
         prompt = f"""
         Eres un asesor académico de nivel doctoral en diseño curricular y un experto en la optimización de trayectorias formativas. Tu tarea es realizar un análisis comparativo cruzado y crítico de las trayectorias sugeridas por los algoritmos de búsqueda basándote ESTRICTAMENTE en los datos de entrada provistos.
 
@@ -453,7 +448,7 @@ class LLMInterface:
         }}
         """
 
-        # 5. Inferencia a la API garantizando el formato JSON
+        # Inferencia a la API garantizando el formato JSON
         response_text = self._call_llm(prompt, expect_json=True)
         if not response_text:
             return {
@@ -479,7 +474,7 @@ class LLMInterface:
                 "guia_orientacion_usuario": "No se pudo descodificar la guía de decisiones por un error de formato JSON."
             }
         
-    def evaluate_adaptive_trajectory(self, user_text, adaptive_trajectory, all_modalities, all_difficulties):
+    def evaluate_adaptive_trajectory(self, user_text, adaptive_trajectory, all_modalities, all_difficulties):  #""Audita y justifica cualitativamente el plan generado por el Motor Adaptativo
         """
         Evalúa una trayectoria generada por el Adaptive Planner y la compara con el texto original del usuario.
         Si la ruta difiere de las expectativas, explica qué restricciones fueron relajadas y por qué.
@@ -490,7 +485,7 @@ class LLMInterface:
         :param all_difficulties: Lista de dificultades disponibles en el dataset.
         :return: Diccionario con análisis de diferencias y justificación.
         """
-        goal_skills = self.get_goals_from_text(user_text, []) 
+        goal_skills = self.get_goals_from_text(user_text, [])  # Extrae las restricciones deseadas originales relanzando los métodos de parseo numérico
         modalities_requested = self.get_modality(user_text, all_modalities)
         difficulties_requested = self.get_difficulty(user_text, all_difficulties)
         money_requested = self.get_money(user_text)
@@ -502,7 +497,7 @@ class LLMInterface:
         total_cost = 0
         total_time = 0
 
-        for course in adaptive_trajectory:
+        for course in adaptive_trajectory:    # Computa las métricas de la trayectoria adaptativa real propuesta
             route_modalities.add(course.get("modality", "desconocida"))
             route_difficulties.add(course.get("difficulty", "desconocida"))
             total_cost += int(course.get("cost", 0) or 0)
@@ -523,7 +518,7 @@ class LLMInterface:
                 "effects": course.get("effects", [])
             })
 
-        # Rediseño del prompt para unificar la respuesta en un formato de párrafo fluido
+       # Construcción del prompt evaluativo para el Asesor Académico de la ruta adaptativa
         prompt = f"""
         Eres un consejero académico experto. El usuario solicitó lo siguiente:
         

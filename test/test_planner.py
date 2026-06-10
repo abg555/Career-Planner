@@ -156,8 +156,7 @@ def test_planner_variant(variant_name, start_skills, goal_skills, modalities, di
     try:
         planner = Planner(start_skills, goal_skills, modalities, difficulties, money, time_hours)
         
-        # El cálculo del tiempo lo hará ahora de manera interna el objeto metrics,
-        # pero mantenemos la recepción limpia mapeando el retorno modificado de planner.py
+       
         if variant_name == "BFS":
             result, metrics = planner.run_bfs_planner()
         elif variant_name == "UCS":
@@ -167,10 +166,9 @@ def test_planner_variant(variant_name, start_skills, goal_skills, modalities, di
         elif variant_name == "Adaptive":
             mode, result = planner.run_adaptive_planner()
             print(f"Mode: {mode}")
-            # Dado que adaptive corre múltiples sub-planners internamente, 
-            # simulamos o calculamos su métrica básica si no retorna un SearchMetrics completo.
+            
             metrics = type('obj', (object,), {
-                'to_dict': lambda: {
+                'to_dict': lambda _: {
                     "nodes_expanded": "N/A (Adaptive)", 
                     "execution_time_ms": "Ver log", 
                     "path_length": len(result)
@@ -196,8 +194,7 @@ def test_planner_variant(variant_name, start_skills, goal_skills, modalities, di
             print(f"Total duration: {total_time} hours")
         else:
             print("No plan found!")
-        
-        # Devolvemos tanto el plan como sus métricas empaquetadas
+     
         return {"plan": result, "metrics": m_dict}
         
     except Exception as e:
@@ -284,9 +281,7 @@ def run_all_tests(target_index=None):
                 all_results[test_name][variant] = res_data
                 time.sleep(0.1)
     
-    # ===========================================================================================
-    # 🔴 NUEVO BLOQUE: TABLA DE ANÁLISIS DE COMPORTAMIENTO DEL SISTEMA
-    # ===========================================================================================
+    
     print("\n" + "="*105)
     print("                 RESUMEN FINAL DE RENDIMIENTO EXPERIMENTAL Y COMPARATIVO DE IA")
     print("="*105)
@@ -298,7 +293,7 @@ def run_all_tests(target_index=None):
         print("-"*105)
         for test_case in current_easy:
             test_name = test_case['name']
-            # Cortamos el nombre si es excesivamente largo para no desajustar el diseño de la tabla
+    
             short_name = test_name if len(test_name) <= 43 else test_name[:40] + "..."
             print(f"📌 {short_name:<42}")
             

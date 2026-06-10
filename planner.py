@@ -264,7 +264,7 @@ class Planner:
         return score
 
     def run_adaptive_planner(self):      #Si la búsqueda estricta falla debido a restricciones incompatibles, escoge la ruta con menor costo de sacrificio
-        strict_plan = self.run_astar_planner()      # Ejecutar la planificación bajo el criterio del 100% de restricciones del usuario
+        strict_plan,_ = self.run_astar_planner()      # Ejecutar la planificación bajo el criterio del 100% de restricciones del usuario
         if strict_plan:
             return 'strict_success', strict_plan     # Si la lista de la ruta no está vacía, éxito absoluto
         
@@ -319,7 +319,7 @@ class Planner:
             self.resources['money'] = candidate['money']
             self.resources['time'] = candidate['time']
 
-            relaxed_plan = self.run_astar_planner()       # Re-ejecuta el algoritmo en el grafo mutado
+            relaxed_plan,_ = self.run_astar_planner()       # Re-ejecuta el algoritmo en el grafo mutado
             if relaxed_plan:    # Si este escenario abrió un camino viable hacia los objetivo. Calcula el costo matemático de haber roto las restricciones originales
                 score = self.get_relaxation_score(
                     original_modalities,
@@ -339,7 +339,7 @@ class Planner:
             self.resources['money'] = float('inf')
             self.resources['time'] = float('inf')
 
-            forced_plan = self.run_astar_planner()
+            forced_plan,_ = self.run_astar_planner()
             if forced_plan:
                 best_plan = forced_plan
                 forced_mode_activated = True       # Bandera de advertencia crítica para el LLM

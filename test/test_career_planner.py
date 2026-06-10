@@ -140,7 +140,6 @@ def run_pipeline_test():
             time=time_hours
         )
 
-        # Diccionario intermedio para capturar las trayectorias brutas por separado
         raw_algorithms_results = {}
 
         def track_raw_algorithm_output(label, plan, status):
@@ -156,7 +155,7 @@ def run_pipeline_test():
                 if reconstructed:
                     raw_algorithms_results[label] = reconstructed
 
-        # --- EJECUCIÓN DE MÉTODOS ESTRICTOS ---
+        
         print("[Algoritmo] Ejecutando Búsqueda en Anchura (BFS)...")
         res_bfs,_ = planner.run_bfs_planner()
         status_bfs = res_bfs[0] if isinstance(res_bfs, tuple) and len(res_bfs) == 2 else ('success' if res_bfs else 'failed')
@@ -175,7 +174,6 @@ def run_pipeline_test():
         plan_astar = res_astar[1] if isinstance(res_astar, tuple) and len(res_astar) == 2 else res_astar
         track_raw_algorithm_output("Ruta A* (Heurística)", plan_astar, status_astar)
         
-        # --- RESPALDO ADAPTATIVO SI TODO LO ANTERIOR FALLÓ ---
         status_adaptive = 'failed'
         adaptive_was_last_resort = False
 
@@ -187,9 +185,7 @@ def run_pipeline_test():
             track_raw_algorithm_output("Ruta Adaptive (Respaldo)", plan_adaptive, status_adaptive)
             adaptive_was_last_resort = len(raw_algorithms_results) > 0
 
-        # =========================================================================
-        # UNIFICACIÓN DE RUTAS IDÉNTICAS (IGUAL QUE EN LA INTERFAZ / GUI)
-        # =========================================================================
+    
         discovered_trajectories = {}
         inverse_trajectory_map = {}
 
@@ -202,12 +198,10 @@ def run_pipeline_test():
                 }
             inverse_trajectory_map[tuple_ids]["names"].append(algo_label)
 
-        # Mapear claves unificadas usando barras diagonales
         for tuple_ids, info in inverse_trajectory_map.items():
             combined_label = "/".join(info["names"])
             discovered_trajectories[combined_label] = info["courses"]
 
-        # --- MOSTRAR LAS TRAYECTORIAS CONSOLIDADAS EN CONSOLA ---
         print("\n================ TRAYECTORIAS UNIFICADAS ENCONTRADAS ================")
         if not discovered_trajectories:
             print("[Auditoría LLM] No se generó ninguna trayectoria válida por los algoritmos para auditar.\n")
@@ -229,9 +223,7 @@ def run_pipeline_test():
                     )
         print("=====================================================================\n")
 
-        # =========================================================================
-        # COORDINACIÓN DE AUDITORÍA FINAL DEL CASO
-        # =========================================================================
+      
         if adaptive_was_last_resort and len(discovered_trajectories) == 1 and "Ruta Adaptive (Respaldo)" in discovered_trajectories:
             print("[LLM] Evaluando solución adaptativa (restricciones fueron relajadas)...")
             adaptive_trajectory = discovered_trajectories.get("Ruta Adaptive (Respaldo)", [])
@@ -245,8 +237,7 @@ def run_pipeline_test():
                     print(f"    - Solicitado: {rel.get('solicitado')}")
                     print(f"    - Ofrecido: {rel.get('ofrecido')}")
                     print(f"    - Razón: {rel.get('razon')}")
-                
-                # SE ELIMINÓ EL BUCLE DE ASPECTOS POSITIVOS EN PLECAS AQUÍ
+            
                 
                 print(f"\nAnálisis pedagógico y beneficios de la ruta:")
                 print(f"  {adaptive_eval.get('justificacion_general', 'Sin análisis disponible.')}")
